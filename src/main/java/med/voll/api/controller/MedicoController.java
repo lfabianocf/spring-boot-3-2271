@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("medicos")
@@ -19,10 +20,17 @@ public class MedicoController {
 
     @PostMapping
     @Transactional
-    public  void cadastrar(@RequestBody @Valid DadosCadastroMedico dados) {
+    public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroMedico dados, UriComponentsBuilder uriBuilder) {
 
-        repository.save(new Medico(dados));
-       // System.out.println(dados);
+        var medico = new Medico(dados);
+
+        repository.save(medico);
+
+        //Retorno código 201 - Requisição processadado e novo recurso criado
+
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
 //    @GetMapping
