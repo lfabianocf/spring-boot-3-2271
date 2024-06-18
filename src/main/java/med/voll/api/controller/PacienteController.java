@@ -64,4 +64,12 @@ public class PacienteController {
         // Retorna código 204 Requisição processada e sem retorno
         return ResponseEntity.noContent().build();
     }
-;}
+
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id) {
+
+        var paciente = repository.getReferenceById(id);
+
+        return ResponseEntity.ok(new DadosDetalhamentoPaciente(paciente));
+    }
+}
