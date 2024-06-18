@@ -26,9 +26,13 @@ public class PacienteController {
     }
 
     @GetMapping
-   public Page<DadosListagemPaciente> listar(@PageableDefault(page=0, size=10, sort = {"nome"}) Pageable paginacao) {
+   public ResponseEntity <Page<DadosListagemPaciente>> listar(@PageableDefault(page=0, size=10, sort = {"nome"}) Pageable paginacao) {
+        //return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
 
-        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemPaciente::new);
+        // Retorna código 200
+        return  ResponseEntity.ok(page);
+        
    }
 
     @PutMapping
