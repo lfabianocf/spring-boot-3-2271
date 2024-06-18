@@ -28,27 +28,31 @@ public class MedicoController {
 //    @GetMapping
 //    public Page<DadosListagemMedico> lista(Pageable paginacao) {
 //        //return  repository.findAll(paginacao).stream().map(DadosListagemMedico::new).toList();
-//
 //        return  repository.findAll(paginacao).map(DadosListagemMedico::new);
 //    }
 
     @GetMapping
-    public Page<DadosListagemMedico> lista(@PageableDefault(size=10, sort = {"nome"}) Pageable paginacao) {
+    public ResponseEntity<Page<DadosListagemMedico>> lista(@PageableDefault(size=10, sort = {"nome"}) Pageable paginacao) {
         //return  repository.findAll(paginacao).stream().map(DadosListagemMedico::new).toList();
         // return  repository.findAll(paginacao).map(DadosListagemMedico::new);
+        //return  repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
 
-        return  repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
+
+        // Retorna código 200
+        return ResponseEntity.ok(page);
     }
 
     @PutMapping
     @Transactional
-    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
 
         var medico = repository.getReferenceById(dados.id());
 
         medico.atualizarInformcoes(dados);
 
-        //System.out.println("teste");
+        // Retornando dados atualizado. Criando um DTO para isso.
+        return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
     @DeleteMapping("/{id}")
@@ -60,6 +64,8 @@ public class MedicoController {
         //repository.deleteById(id);
         medico.excluir();
 
+        // Retorna código 204 Requisição processada e sem retorno
         return  ResponseEntity.noContent().build();
     }
+
 }
