@@ -22,10 +22,13 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         //System.out.println("teste Filtro");
 
+        var tokenJWT = recuperarToken(request);
+
+        System.out.println(tokenJWT);
+
         filterChain.doFilter(request, response);
 
     }
-
 
 //    private String recuperarToken(HttpServletRequest request) {
 //
@@ -38,4 +41,17 @@ public class SecurityFilter extends OncePerRequestFilter {
 //        return authorizationHeader.replace("Bearer", "");
 //
 //    }
+
+
+    private String recuperarToken(HttpServletRequest request) {
+
+        var authorizationHeader = request.getHeader("Authorization");
+
+        if (authorizationHeader == null) {
+            throw new RuntimeException("Token JWT não enviado no cabeçalho Authorization !");
+        }
+
+        return authorizationHeader.replace("Bearer", "");
+
+    }
 }
