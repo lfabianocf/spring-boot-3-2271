@@ -19,7 +19,7 @@ public class TokenService {
 
     public String gerarToken(Usuario usuario) {
 
-        //System.out.println(secret);
+        System.out.println(secret);
 
         try {
             var algoritimo = Algorithm.HMAC256(secret);
