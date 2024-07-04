@@ -53,6 +53,8 @@ public class AgendaDeConsulta {
             throw new ValidacaoException("Especilidade é obritatória quando médico não for escolhido!");
         }
 
+        return medicoRepository.escolherMedicoAleatorioLivreNaData(dados.especialidade(), dados.data());
+
     }
 
 }
