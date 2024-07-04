@@ -4,7 +4,7 @@ import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.ConsultaRepository;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
-public class ValidadorMedicoComOutraConsultaNoMesmoHorario {
+public class ValidadorMedicoComOutraConsultaNoMesmoHorario implements ValidadorAgendamentoDeConsulta {
 
     private ConsultaRepository repository;
 
@@ -17,9 +17,6 @@ public class ValidadorMedicoComOutraConsultaNoMesmoHorario {
             throw new ValidacaoException("Médico já possui outra consulta agendada nesse mesmo horário!");
         }
 
-
     }
-
-
 
 }

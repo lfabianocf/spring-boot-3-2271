@@ -4,12 +4,11 @@ import med.voll.api.domain.ValidacaoException;
 import med.voll.api.domain.consulta.ConsultaRepository;
 import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
-public class ValidadorPacienteSemOutraConsultaNoDia {
+public class ValidadorPacienteSemOutraConsultaNoDia implements ValidadorAgendamentoDeConsulta {
 
     private ConsultaRepository repository;
 
-
-    public  void Validar(DadosAgendamentoConsulta dados) {
+    public  void validar(DadosAgendamentoConsulta dados) {
 
         var primeiroHorario = dados.data().withHour(7);
         var ultimoHorario = dados.data().withHour(18);
@@ -21,6 +20,5 @@ public class ValidadorPacienteSemOutraConsultaNoDia {
         }
 
     }
-
 
 }
