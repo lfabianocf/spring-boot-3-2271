@@ -24,9 +24,12 @@ public class ConsultaController {
 
         //System.out.println(dados);
 
-        agenda.agendar(dados);
+        //agenda.agendar(dados);
 
-        return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null,null,null));
+        var dto = agenda.agendar(dados);
+
+//        return ResponseEntity.ok(new DadosDetalhamentoConsulta(null, null,null,null));
+        return ResponseEntity.ok(dto);
 
     }
 
