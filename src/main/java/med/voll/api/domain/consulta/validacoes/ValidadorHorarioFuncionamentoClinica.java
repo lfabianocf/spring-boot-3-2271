@@ -5,7 +5,7 @@ import med.voll.api.domain.consulta.DadosAgendamentoConsulta;
 
 import java.time.DayOfWeek;
 
-public class ValidadosHorarioFuncionamentoClinica {
+public class ValidadorHorarioFuncionamentoClinica {
 
     public void validar(DadosAgendamentoConsulta dados) {
 
