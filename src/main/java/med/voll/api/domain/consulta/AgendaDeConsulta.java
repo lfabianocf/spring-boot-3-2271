@@ -36,7 +36,7 @@ public class AgendaDeConsulta {
             throw new ValidationException("Id do paciente informado não existe!");
         }
 
-        var consulta = new Consulta(null, medico, paciente, dados.data());
+        var consulta = new Consulta(null, medico, paciente, dados.data(), null);
 
         consultaRepository.save(consulta);
 
