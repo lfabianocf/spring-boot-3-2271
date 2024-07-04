@@ -57,4 +57,17 @@ public class AgendaDeConsulta {
 
     }
 
+    public void cancelar(DadosCancelamentoConsulta dados) {
+
+        if (!consultaRepository.existsById(dados.idConsulta())) {
+
+            throw new ValidationException("Id da consulta informado não existe!");
+        }
+
+        var consulta = consultaRepository.getReferenceById(dados.idConsulta());
+
+        consulta.cancelar(dados.motivo());
+
+
+    }
 }
