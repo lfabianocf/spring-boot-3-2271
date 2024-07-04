@@ -2,11 +2,14 @@ package med.voll.api.domain.consulta;
 
 import jakarta.validation.ValidationException;
 import med.voll.api.domain.ValidacaoException;
+import med.voll.api.domain.consulta.validacoes.ValidadorAgendamentoDeConsulta;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AgendaDeConsulta {
@@ -19,6 +22,9 @@ public class AgendaDeConsulta {
 
     @Autowired
     private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private List<ValidadorAgendamentoDeConsulta> validadores;
 
     public void agendar(DadosAgendamentoConsulta dados){
 
