@@ -28,12 +28,6 @@ public class AgendaDeConsulta {
 
     public void agendar(DadosAgendamentoConsulta dados){
 
-        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
-
-        //var medico = medicoRepository.findById(dados.idMedico()).get();
-
-        var medico = escolherMedico(dados);
-
         if (!pacienteRepository.existsById(dados.idPaciente())){
             throw new ValidationException("Id do paciente informado não existe!");
         }
@@ -41,6 +35,14 @@ public class AgendaDeConsulta {
         if (dados.idMedico() != null && !medicoRepository.existsById(dados.idMedico())){
             throw new ValidationException("Id do médico informado não existe!");
         }
+
+        validadores.forEach(v -> v.validar(dados));
+
+        var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
+
+        //var medico = medicoRepository.findById(dados.idMedico()).get();
+
+        var medico = escolherMedico(dados);
 
         var consulta = new Consulta(null, medico, paciente, dados.data(), null);
 
